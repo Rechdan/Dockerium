@@ -14,7 +14,7 @@
     { "orderLevel": 301, "regex": "^(_/consts)(.*?)" },
     { "orderLevel": 302, "regex": "^(_/theme)(.*?)" },
     { "orderLevel": 303, "regex": "^(_/db)(.*?)" },
-    { "orderLevel": 304, "regex": "^(_/functions)(.*?)" },
+    { "orderLevel": 304, "regex": "^(_/utils)(.*?)" },
     { "orderLevel": 305, "regex": "^(_/images)(.*?)" },
     { "orderLevel": 306, "regex": "^(_/styles)(.*?)" },
     { "orderLevel": 400, "regex": "^(_/stores)(.*?)" },

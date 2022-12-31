@@ -6,13 +6,15 @@
   "license": "MIT",
   "scripts": {
     "upgrade": "ncu --reject typescript -u && yarn --check-files",
-    "dev": "nodemon -w \"next.config.js\" -e \"*\" -x \"yarn run dev-run\"",
-    "dev-run": "next dev",
+    "dev": "nodemon -w \"next.config.js\" -e \"*\" -x \"yarn run dev:run\"",
+    "dev:run": "next dev",
+    "dev:local:docker": "docker build -t dockerium:dev . && docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/docker:/usr/bin/docker -p 3000:3000 dockerium:dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "axios": "1.2.2",
+    "dockerode": "3.3.4",
     "lodash": "4.17.21",
     "next": "13.1.1",
     "react": "18.2.0",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "13.1.1",
+    "@types/dockerode": "3.3.14",
     "@types/lodash": "4.14.191",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
