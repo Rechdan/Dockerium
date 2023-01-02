@@ -19,8 +19,3 @@ curl -s https://get.docker.com/rootless | sudo sh
 ```
 
 ... more installation steps to come...
-
-### Development progress history
-
-> 2022-12-31
-> ![alt text](imgs/progress-01.png)
