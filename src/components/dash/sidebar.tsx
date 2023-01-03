@@ -14,10 +14,14 @@ const StyledContainer = styled.div`
   background-color: ${COLOR_SIDEBAR};
   box-shadow: ${SHADOW_SIDEBAR};
   padding: 3rem 1rem;
+  min-height: 100vh;
   flex-flow: column;
+  position: sticky;
   display: flex;
   width: 22rem;
   gap: 3rem;
+  left: 0;
+  top: 0;
 `;
 
 const StyledTitle = styled.div`

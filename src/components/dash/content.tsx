@@ -14,11 +14,15 @@ const StyledContainer = styled.div`
 const StyledBody = styled.div`
   flex: 0 0 auto;
   padding: 3rem 1rem;
+  min-height: 100vh;
   flex-flow: column;
+  position: sticky;
   margin: 0 auto;
   display: flex;
   width: 80%;
   gap: 3rem;
+  left: 0;
+  top: 0;
 `;
 
 const Content = memo(() => {

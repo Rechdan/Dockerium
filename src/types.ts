@@ -26,7 +26,6 @@ export type AccountSidebarResponse =
         id: string;
         isAdmin: boolean;
         name: string;
-        created: Date;
       };
       projects: Project[];
       teams: Team[];

@@ -8,7 +8,7 @@ import { getAccountFromAuthHash } from "_/utils/auth-hash";
 
 const route: NextApiHandler<AccountSidebarResponse> = async (req, res) => {
   try {
-    const { id, isAdmin, name, created } = await getAccountFromAuthHash(req);
+    const { id, isAdmin, name } = await getAccountFromAuthHash(req);
 
     const projects = await db.project.findMany({
       where: {
@@ -22,7 +22,7 @@ const route: NextApiHandler<AccountSidebarResponse> = async (req, res) => {
       },
     });
 
-    return res.json({ type: "success", account: { id, isAdmin, name, created }, projects, teams });
+    return res.json({ type: "success", account: { id, isAdmin, name }, projects, teams });
   } catch (error) {
     if (typeof error === "string") {
       return res.json({ type: "error", messages: [error] });
