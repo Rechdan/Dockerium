@@ -2,8 +2,8 @@ import { memo, useMemo } from "react";
 
 import styled from "styled-components";
 
-import AccountProjects from "_/components/dash/account-projects";
 import { useDash } from "_/components/dash/context";
+import HomeProjects from "_/components/dash/home-projects";
 
 const StyledContainer = styled.div`
   flex: 1 1 auto;
@@ -33,7 +33,14 @@ const Content = memo(() => {
       case "home":
         return (
           <>
-            <AccountProjects />
+            <HomeProjects />
+          </>
+        );
+
+      case "account-projects-new":
+        return (
+          <>
+            <h1>New Project!</h1>
           </>
         );
 
