@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id       String           @id @default(cuid())
+  isAdmin  Boolean          @default(false)
+  email    String           @unique
+  password String
+  name     String
+  created  DateTime         @default(now())
+  teams    TeamMember[]
+  projects AccountProject[]
+}
+
+model AccountProject {
+  id        String   @id @default(cuid())
+  accountId String
+  account   Account  @relation(fields: [accountId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  created   DateTime @default(now())
+
+  @@unique([accountId, projectId])
+}
+
+model Project {
+  id       String           @id @default(cuid())
+  name     String
+  created  DateTime         @default(now())
+  accounts AccountProject[]
+  teams    ProjectTeam[]
+}
+
+model ProjectTeam {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  created   DateTime @default(now())
+
+  @@unique([projectId, teamId])
+}
+
+model Team {
+  id       String        @id @default(cuid())
+  name     String
+  created  DateTime      @default(now())
+  members  TeamMember[]
+  projects ProjectTeam[]
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  accountId String
+  account   Account  @relation(fields: [accountId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  created   DateTime @default(now())
+
+  @@unique([accountId, teamId])
+}
