@@ -91,12 +91,6 @@ const SignIn = memo(() => {
         const response = await accountLogin(email, password);
 
         switch (response.type) {
-          case "error":
-            for (const error of response.messages) {
-              toast.error(error);
-            }
-            break;
-
           case "success":
             toast.success("Login successful!");
             accountAuthMutate({ type: "success" });

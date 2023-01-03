@@ -13,5 +13,5 @@ export const setCookie = (res: NextApiResponse, name: string, value: unknown, op
 };
 
 export const clearCookie = (res: NextApiResponse, name: string) => {
-  setCookie(res, name, null, { maxAge: -1 });
+  setCookie(res, name, "", { maxAge: -1 });
 };

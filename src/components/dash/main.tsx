@@ -2,6 +2,7 @@ import { memo } from "react";
 
 import styled from "styled-components";
 
+import Content from "_/components/dash/content";
 import Sidebar from "_/components/dash/sidebar";
 
 const StyledContainer = styled.div`
@@ -14,6 +15,7 @@ const StyledContainer = styled.div`
 const Main = memo(() => (
   <StyledContainer>
     <Sidebar />
+    <Content />
   </StyledContainer>
 ));
 

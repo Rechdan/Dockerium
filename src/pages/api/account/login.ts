@@ -1,4 +1,4 @@
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import { NextApiHandler } from "next";
 
 import argon2 from "argon2";
 
@@ -11,7 +11,7 @@ import { setCookie } from "_/utils/cookies";
 
 import { accountLoginValidator, ValidationError } from "_/validators";
 
-const action = async (req: NextApiRequest, res: NextApiResponse<AccountLoginResponse>): Promise<AccountLoginResponse> => {
+const route: NextApiHandler<AccountLoginResponse> = async (req, res) => {
   try {
     if (req.method === "POST") {
       const { email, password } = await accountLoginValidator.validate(req.body, { abortEarly: false });
@@ -25,31 +25,33 @@ const action = async (req: NextApiRequest, res: NextApiResponse<AccountLoginResp
         if (isFirstAccount) {
           account = await db.account.create({
             data: {
+              isAdmin: true,
               email,
               password: await argon2.hash(password),
+              name: "Administrator",
             },
           });
         }
 
         setCookie(res, AUTH_COOKIE, hash);
 
-        return { type: "success" };
+        return res.json({ type: "success" });
       }
 
-      return { type: "error", messages: ["Email or password is invalid!"] };
+      return res.json({ type: "error", messages: ["Email or password is invalid!"] });
     }
 
-    return { type: "error", messages: ["Invalid method!"] };
+    return res.json({ type: "error", messages: ["Invalid method!"] });
   } catch (error) {
     if (error instanceof ValidationError) {
-      return { type: "error", messages: error.errors };
+      return res.json({ type: "error", messages: error.errors });
+    } else if (typeof error === "string") {
+      return res.json({ type: "error", messages: [error] });
     } else {
       console.error("/account/login", error);
-      return { type: "error", messages: ["Server error!"] };
+      return res.json({ type: "error", messages: ["Server error!"] });
     }
   }
 };
-
-const route: NextApiHandler = async (req, res) => res.json(await action(req, res));
 
 export default route;
