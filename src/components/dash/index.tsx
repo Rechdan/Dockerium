@@ -9,6 +9,18 @@ export type DashProps =
     }
   | {
       page: "account-profile";
+    }
+  | {
+      page: "account-projects";
+    }
+  | {
+      page: "account-teams";
+    }
+  | {
+      page: "docker-containers";
+    }
+  | {
+      page: "docker-images";
     };
 
 const Dash = memo((props: DashProps) => (
